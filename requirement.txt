@@ -1,0 +1,8 @@
+langchain
+langgraph
+
+dotenv
+uvicorn
+langchain-google-genai
+
+streamlit
