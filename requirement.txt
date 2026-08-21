@@ -5,4 +5,6 @@ dotenv
 uvicorn
 langchain-google-genai
 
+langchain-tavily
+
 streamlit
