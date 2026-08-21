@@ -1,5 +1,4 @@
-import streamlit as st 
-from langchain.chat_models import init_chat_model
+from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from typing import TypedDict,Annotated
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, ToolMessage,AnyMessage
@@ -7,6 +6,8 @@ from langgraph.graph.message import add_messages
 from langgraph.graph import START, END, StateGraph
 from langgraph.prebuilt import ToolNode,tools_condition
 from langgraph.checkpoint.memory import MemorySaver
+import streamlit as st 
+from langchain.tools import tool
 
 from tavily import TavilyClient
 import os 
@@ -19,11 +20,13 @@ llm_model = init_chat_model(model="gemini-2.5-flash",model_provider="google_gena
 class State(TypedDict):
     messages: Annotated[list[AnyMessage],add_messages]
 
+@tool
 def sum(a:int,b:int)->int:
     '''addition of a and b'''
     res = a+b
     return f'{a} + {b} = {res}'
 
+@tool
 def search_tool(state:State):
     '''answer user query on real time web search data'''
     client = TavilyClient(api_key)
