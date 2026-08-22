@@ -53,7 +53,7 @@ def get_agent():
     graph.add_node('tools',ToolNode(tools))
     graph.add_edge(START,'chatbot')
     graph.add_conditional_edges('chatbot',tools_condition)
-    graph.add_edge('tools',END)
+    graph.add_edge('tools','chatbot')
     return graph.compile(checkpointer=memory)
 
 agent = get_agent()
